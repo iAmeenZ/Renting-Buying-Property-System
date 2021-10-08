@@ -1,0 +1,91 @@
+<?php 
+
+	session_start();
+
+	$con = mysqli_connect('localhost','root','123456');
+
+	mysqli_select_db($con,'man city');
+
+	$name = $_POST['username'];
+	$pass = $_POST['password'];
+
+	$s = "select * from usertable where name = 'name'";
+
+	$result = mysqli_query($con, $s);
+
+	$num = mysqli_num_rows($result);
+
+	if($num == 1)
+	{
+		echo " username already taken.";
+	}
+	else
+	{
+		$reg = " insert into usertable(username,password) values ('$name','$pass')";
+		mysqli_query($con,$reg);
+	}
+
+
+	header('Location: index.php');
+
+?>
+
+<?php 
+
+	$servername="localhost";
+	$username="root";
+	$password="";
+	$dbname="db1";
+
+	$x = $_POST['name'];
+	$y = $_POST['age'];
+	$z = $_POST['country'];
+
+
+	// Creat connection
+	$conn = new mysqli($servername,$username,$password,$dbname);
+
+	//Check connection
+	if($conn->connect_error){
+		die("Connection failed: " . $conn->connect_error);
+	}
+
+	echo "Connect successfully";
+	$sql = "INSERT INTO user VALUES (id,'$x','$y','$z')";
+
+	if ($conn->query($sql) === TRUE){
+		echo "New record created ssuccessfully";
+		$last_id = $conn->insert_id;
+	}
+	else{
+		echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+
+	$conn->close();
+
+	header('Location: home.php');
+
+?>
+
+https://codewithawa.com/posts/complete-user-registration-system-using-php-and-mysql-database
+https://bulma.io/documentation/form/file/
+
+CREATE TABLE `users` (
+  `userid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `username` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `property` (
+  `propertyid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `type` varchar(20) NOT NULL,
+  `propertyname` varchar(100) NOT NULL,
+  `propertyaddress` varchar(150) NOT NULL,
+  `propertyprice` double NOT NULL,
+  `sellername` varchar(100) NOT NULL,
+  `phonenum1` varchar(20) NOT NULL,
+  `email1` varchar(100) NOT NULL,
+  `userid` int(11) NOT NULL,
+  FOREIGN KEY (`userid`) REFERENCES usermain (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

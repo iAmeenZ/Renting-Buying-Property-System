@@ -1,0 +1,24 @@
+CREATE TABLE `usermain` (
+  `userid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `username` varchar(100) NOT NULL,
+  `firstname` varchar(100),
+  `lastname` varchar(100),
+  `phonenum` varchar(20),
+  `age` varchar(10) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `property` (
+  `propertyid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `type` varchar(20) NOT NULL,
+  `propertyname` varchar(100) NOT NULL,
+  `propertyaddress` varchar(150) NOT NULL,
+  `propertyprice` double NOT NULL,
+  `sellername` varchar(100) NOT NULL,
+  `phonenum1` varchar(20) NOT NULL,
+  `email1` varchar(100) NOT NULL,
+  `userid` int(11) NOT NULL,
+  FOREIGN KEY (`userid`) REFERENCES usermain (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
